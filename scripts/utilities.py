@@ -499,12 +499,13 @@ def calcInteraction_binTrick_allOrders(conditionedGenes):
     return np.log(np.prod(np.array([x**p for (x, p) in zip(binCounts, powers)])))  
 
 
-def calcInteraction_withCI_andBounds(genes, graph, dataSet, estimator, genesToOne=[], dataDups=0, boundBool=0, asympBool=0, nResamps=1000, condition=True):
+def calcInteraction_withCI_andBounds(genes, graph, dataSet, estimator, genesToOne=[], dataDups=0, boundBool=0, asympBool=0, nResamps=1000):
     '''
     Add 95% confidence interval bounds and F-value from bootstrap resamples, or asymptotic approximation.
     To check for function equality, you need to use bytecode.
     '''
     
+    '''
     if condition:
         if estimator.__code__.co_code == calcInteraction_expectations.__code__.co_code:
             MBmode = '0' # Use first gene to get MB
@@ -517,8 +518,9 @@ def calcInteraction_withCI_andBounds(genes, graph, dataSet, estimator, genesToOn
         conditionedGenes = conditionOnMB(genes, graph, dataSet, mode=MBmode, genesToOne=genesToOne)
     else:
         conditionedGenes = dataSet.iloc[:, genes]
-
-
+    '''
+    
+    conditionedGenes = dataSet.iloc[:, genes]
     # conditionedGenes = conditionOnMB(genes, graph, dataSet, mode=MBmode, genesToOne=genesToOne)
     
     # Check if data needs to be duplicated
